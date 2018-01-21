@@ -20,7 +20,7 @@ class Accueil extends CI_Controller {
 
 	public function mon_profil(){
 		
-		
+		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
 		// si on charge la page sans soummettre le formulaire
 		if($this->estConnecte == true && !isset($_POST['ok'])){
 			$this->load->view('header');
