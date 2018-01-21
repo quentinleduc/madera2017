@@ -1,0 +1,45 @@
+body{
+	background-image: url("../img/fond.jpg");
+	color: black;
+	position:relative;
+		
+    height: 100%;
+}
+
+header{
+	backgroundColor: black,
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  borderBottomWidth: 0 ;
+}
+
+#Formulaire_login,#Formulaire_mdp
+{
+	border: 50px;
+	text-align: center;
+	margin-top: 170px; 
+	margin-bottom: auto;
+}
+
+
+.form_login{
+	width: 300px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.titre_madera{
+	text-align: center;
+	color: #778899;
+}
+
+#erreur_msg
+{
+	text-align: center;
+	color : red;
+	 font-weight: bold;
+}
