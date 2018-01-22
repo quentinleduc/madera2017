@@ -72,4 +72,15 @@ class Accueil extends CI_Controller {
 		}
 
 	}
+
+
+	public function clients(){
+		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
+		
+		if($this->estConnecte == true ){
+			$this->load->view('header');
+			$this->load->view('clients');
+			$this->load->view('footer');
+		}
+	}
 }

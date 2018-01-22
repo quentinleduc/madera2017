@@ -17,10 +17,10 @@
         </div>
         <div class="col-lg-4 portfolio-item">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="<?= base_url('assets/img/clients.png') ?>" alt=""></a>
+            <a href="<?= site_url('accueil/clients') ?>"><img class="card-img-top" src="<?= base_url('assets/img/clients.png') ?>" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">Clients</a>
+                <a href="<?= site_url('accueil/clients') ?>">Clients</a>
               </h4>
               <p class="card-text">Consultation et création de client</p>
             </div>
