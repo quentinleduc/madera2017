@@ -8,39 +8,44 @@
 <br>
 			<br>
 <?php echo form_open('accueil/mon_profil'); ?>
-	<div class="form-group">
+	<div class="form-row">
 		<input  type="hidden" id="ok" name="ok" value="ok">
 		<label class="control-label col-sm-2">Réference</label>
-			<div class="col-sm-5">
-				<p style="text-transform:uppercase;"><?= $_SESSION['ref'] ?> </p>
+			<div class="form-group col-md-6">
+				<p style="text-transform:uppercase;"><?= $_SESSION['ref'] ?> trhtr</p>
 			</div>
-			<label class="control-label col-sm-2">Nom</label>
-			<div class="col-sm-5">
-				<input  class="form_inscription form-control" id="nom" name="nom" value="<?= $_SESSION['nom'] ?>">
-			</div>
-			<br>
-			<br>
-			<label class="control-label col-sm-2">Prenom</label>
-			<div class="col-sm-5">
-				<input  class="form_inscription form-control" id="prenom"  name="prenom" value="<?= $_SESSION['prenom'] ?>">
+			<div class="form-group col-md-6">
+			<label >Nom</label>
+			
+				<input  class=" form-control" id="nom" name="nom" value="<?= $_SESSION['nom'] ?>">
 			</div>
 			<br>
 			<br>
-			<label class="control-label col-sm-2">Télephone</label>
-			<div class="col-sm-5">
-				<input  class="form_inscription form-control" id="tel"  name="tel" value="<?= $_SESSION['tel'] ?>">
+			<div class="form-group col-md-6">
+			<label >Prenom</label>
+			
+				<input  class=" form-control" id="prenom"  name="prenom" value="<?= $_SESSION['prenom'] ?>">
 			</div>
 			<br>
 			<br>
-			<label class="control-label col-sm-2">Email</label>
-			<div class="col-sm-5">
-				<input  class="form_inscription form-control" id="email"  name="email" value="<?= $_SESSION['email'] ?>">
+			<div class="form-group col-md-6">
+			<label >Télephone</label>
+			
+				<input  class=" form-control" id="tel"  name="tel" value="<?= $_SESSION['tel'] ?>">
 			</div>
 			<br>
 			<br>
-			<label class="control-label col-sm-2">Mot de passe</label>
-			<div class="col-sm-5">
-				<input  type="password" class="form_inscription form-control" id="mdp" placeholder="Nouveau mot de passe" name="mdp" value="">
+			<div class="form-group col-md-6">
+			<label >Email</label>
+			
+				<input  class=" form-control" id="email"  name="email" value="<?= $_SESSION['email'] ?>">
+			</div>
+			<br>
+			<br>
+			<div class="form-group col-md-6">
+			<label >Mot de passe</label>
+			
+				<input  type="password" class=" form-control" id="mdp" placeholder="Nouveau mot de passe" name="mdp" value="">
 			</div>
 			<br>
 			<br>

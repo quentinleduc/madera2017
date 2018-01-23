@@ -1,52 +1,65 @@
 <?php if(!defined('BASEPATH')) exit('Direct Access Not Allowed');?>
 
+<h1>Clients</h1>
+
+
+<br>
+<button class="w3-button w3-ripple w3-green">Ajouter un client</button>
+<br>
+<br>
+<?php
+
+  if($listeClients != null){
+    ?>
+
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-              <th>#</th>
-		      <th>Utilisateur</th>
-		      <th>Action</th>
-		      <th>Date</th>
-		      <th>Service </th>
-		      <th>Emplacement du service </th>
+		      <th>Reférence</th>
+		      <th>Nom</th>
+		      <th>Prenom</th>
+		      <th>Adresse</th>
+		      <th>Code postale</th>
+              <th>Téléphone</th>
+              <th>Email</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-               <th>#</th>
-		      <th>Utilisateur</th>
-		      <th>Action</th>
-		      <th>Date</th>
+		      <th>Reférence</th>
+		      <th>Nom</th>
+		      <th>Prenom</th>
 		      <th>Service </th>
-		      <th>Emplacement du service </th>
+		      <th>Code postale</th>
+              <th>Téléphone</th>
+              <th>Email</th>
             </tr>
         </tfoot>
-        <tbody>';
-        for($i=0;$i<count($listeMouv);$i++){
-        	$idMouv=$listeMouv[$i]->get_id();
-        	//récupétation de l'utilisateur
-        	$dao_user = new DAO_user();
-			$user=$dao_user->get_user_by_id($listeMouv[$i]->get_user_id());
-			$nomUtil = $user->get_nom();
-
-			$action=$listeMouv[$i]->get_action();
-			$date=$listeMouv[$i]->get_date();
-			//récupération du nom du service
-			$dao_service = new DAO_service();
-			$service = $dao_service->get_service($listeMouv[$i]->get_service_id());
-			$nomServ = $service->get_nom();
-			$empl = $service->get_emplacement();
-			$retour .='
+        <tbody>
+             
+               <?php foreach ($listeClients as $cli){ 
+                    for($i = 0;$i<count($cli);$i++){?>
             <tr>
-                <td>'.$idMouv.'</td>
-                <td>'.$nomUtil.'</td>
-                <td>'.$action.'</td>
-                <td>'.$date.'</td>
-                <td>'.$nomServ.'</td>
-                <td>'.$empl.'</td>
-            </tr>';
-        }
-		$retour .='</tbody>
-    </table>
+                <td><?= $cli[$i]['id_cli'] ?></td>
+                <td><?= $cli[$i]['nom_cli']  ?></td>
+                <td><?= $cli[$i]['prenom_cli']  ?></td>
+                <td><?= $cli[$i]['adresse_cli']  ?></td>
+                <td><?= $cli[$i]['code_postal_cli']  ?></td>
+                <td><?= $cli[$i]['telephone_cli']  ?></td>
+                <td><?= $cli[$i]['email_cli'] ?></td>
+                <?php } ?>
+            </tr>
+            <?php }?>
+            
 
+
+
+
+             
+        </tbody>
+    </table>
+<?php }
+else{?>
+        <p><b>Aucun client n'a été ajouté !</b></p>
+    <?php } ?>
 			</div>

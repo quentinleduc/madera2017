@@ -4,6 +4,7 @@ class Accueil extends CI_Controller {
 
 	private $estConnecte = false;
 
+	//page Accueil
 	public function index(){
 		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
 		if($this->estConnecte == true){
@@ -18,6 +19,7 @@ class Accueil extends CI_Controller {
 		}
 	}
 
+	//page Mon Profil
 	public function mon_profil(){
 		
 		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
@@ -74,13 +76,23 @@ class Accueil extends CI_Controller {
 	}
 
 
+	//page clients
 	public function clients(){
 		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
 		
 		if($this->estConnecte == true ){
+
+			//on charge tous les clients
+			$listeClients = $this->clients_model->get_all();
+			$data['listeClients'] = array($listeClients);
 			$this->load->view('header');
-			$this->load->view('clients');
+			$this->load->view('clients',$data);
 			$this->load->view('footer');
+		}
+
+		else {
+			$this->session->set_flashdata('error_msg', "Vous n'avez pas accès à cette page, Veuillez vous identifier !");
+			redirect('login');
 		}
 	}
 }

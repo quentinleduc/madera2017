@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('BASEPATH')) exit('Direct Access Not Allowed');
 
 Class User_model extends CI_Model
 {
