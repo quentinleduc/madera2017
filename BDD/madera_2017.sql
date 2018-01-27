@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 21 Janvier 2018 à 15:29
+-- Généré le :  Sam 27 Janvier 2018 à 13:54
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `madera_2017`
 --
-CREATE DATABASE IF NOT EXISTS madera_2017;
+CREATE DATABASE IF NOT EXIST  madera_2017;
 USE madera_2017;
 -- --------------------------------------------------------
 
@@ -37,6 +37,14 @@ CREATE TABLE `clients` (
   `telephone_cli` varchar(10) NOT NULL,
   `email_cli` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `clients`
+--
+
+INSERT INTO `clients` (`id_cli`, `ref_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `code_postal_cli`, `telephone_cli`, `email_cli`) VALUES
+(1, '', 'Paul', 'Pogba', 'Manchester', '55000', '024544', 'paul.pob@ppb.com'),
+(2, '', 'Vandame', 'Jean-Claude', 'Paris', '75000', '0666666', 'jc.v@jcv.com');
 
 -- --------------------------------------------------------
 
@@ -71,7 +79,7 @@ CREATE TABLE `commercials` (
 --
 
 INSERT INTO `commercials` (`id_com`, `ref_com`, `nom_com`, `prenom_com`, `telephone_com`, `email_com`, `mdp_com`, `actif_com`) VALUES
-(1, 'test', 'Edward', 'Newgate', '0666666', 'test@t.com', 'test', 1);
+(1, 'test', 'Edwarde', 'Newgate', '0666666', 'test@t.com', 'test1', 1);
 
 -- --------------------------------------------------------
 
@@ -327,7 +335,7 @@ ALTER TABLE `projet_mod`
 -- AUTO_INCREMENT pour la table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id_cli` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cli` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `commercials`
 --
