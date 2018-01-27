@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Sam 27 Janvier 2018 à 13:54
--- Version du serveur :  5.7.14
--- Version de PHP :  5.6.25
+-- Client :  localhost
+-- Généré le :  Sam 27 Janvier 2018 à 16:54
+-- Version du serveur :  5.7.20-0ubuntu0.16.04.1
+-- Version de PHP :  7.0.22-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `madera_2017`
 --
-CREATE DATABASE IF NOT EXIST  madera_2017;
-USE madera_2017;
+
 -- --------------------------------------------------------
 
 --
@@ -95,8 +94,18 @@ CREATE TABLE `composant` (
   `caracteristique_compo` varchar(100) NOT NULL,
   `uniter_usage_compo` varchar(100) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `prix` float NOT NULL
+  `prix` float NOT NULL,
+  `quantité` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `composant`
+--
+
+INSERT INTO `composant` (`id_composant`, `id_famille`, `ref_compo`, `nom_compo`, `caracteristique_compo`, `uniter_usage_compo`, `description`, `prix`, `quantité`) VALUES
+(1, 6, 'boulon', 'Boulon', '', 'Pièce', 'Boulon', 0, 500),
+(2, 4, 'ardoise', 'Ardoise', '', 'Pièce', 'Ardoise', 0, 600),
+(3, 2, 'lame_bardage_bois', 'Lame de bardage bois', '', 'Mètre', '', 0, 500);
 
 -- --------------------------------------------------------
 
@@ -145,6 +154,18 @@ CREATE TABLE `famille_composant` (
   `famille` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `famille_composant`
+--
+
+INSERT INTO `famille_composant` (`id_famille`, `famille`) VALUES
+(1, 'Plancher'),
+(2, 'Panneaux extérieurs'),
+(3, 'Panneaux intérieurs'),
+(4, 'Couverture'),
+(5, 'Montant'),
+(6, 'Élément de montage');
+
 -- --------------------------------------------------------
 
 --
@@ -176,6 +197,15 @@ CREATE TABLE `gamme` (
   `description` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `gamme`
+--
+
+INSERT INTO `gamme` (`id_gam`, `ref_gam`, `nom_gam`, `finition_gam`, `isolant_gam`, `type_couverture_gam`, `huisserie_gam`, `description`) VALUES
+(1, 'premium', 'Premium', 'Crépis', 'Biologique', 'Tuiles', 'Bois', 'Gamme Premium'),
+(2, 'wood', 'Wood', 'Bois', 'Naturel', 'Ardoise', 'Bois', 'Gamme Wood'),
+(3, 'stone', 'Stone', 'Crépis', 'Synthétique', 'Tuile', 'PVC', 'Gamme Stone');
+
 -- --------------------------------------------------------
 
 --
@@ -192,6 +222,15 @@ CREATE TABLE `module` (
   `angle_module` float NOT NULL,
   `nom_module` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `module`
+--
+
+INSERT INTO `module` (`id_module`, `ref_module`, `coup_module`, `cctp_module`, `description_module`, `prix_module`, `angle_module`, `nom_module`) VALUES
+(1, 'projet1_mur_exterieur', 'Droite', '', 'Mur extérieur Projet 1', 0, 90, 'Mur extérieur Projet 1'),
+(2, 'projet1_plancher', 'Droite', '', 'Plancher Projet 1', 0, 90, 'Plancher Projet 1'),
+(3, 'projet1_couverture', 'Droite', '', 'Couverture Projet 1', 0, 120, 'Couverture Projet 1');
 
 -- --------------------------------------------------------
 
@@ -345,7 +384,7 @@ ALTER TABLE `commercials`
 -- AUTO_INCREMENT pour la table `composant`
 --
 ALTER TABLE `composant`
-  MODIFY `id_composant` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_composant` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `devis`
 --
@@ -355,7 +394,7 @@ ALTER TABLE `devis`
 -- AUTO_INCREMENT pour la table `famille_composant`
 --
 ALTER TABLE `famille_composant`
-  MODIFY `id_famille` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_famille` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `fournisseur`
 --
@@ -365,12 +404,12 @@ ALTER TABLE `fournisseur`
 -- AUTO_INCREMENT pour la table `gamme`
 --
 ALTER TABLE `gamme`
-  MODIFY `id_gam` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_gam` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `module`
 --
 ALTER TABLE `module`
-  MODIFY `id_module` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_module` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `projet`
 --
