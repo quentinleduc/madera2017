@@ -6,23 +6,18 @@
     <?php if($this->session->flashdata('error_msg')){ echo $this->session->flashdata('error_msg'); } ?>
   </div>
 <div id="Formulaire_login">
+    <?php echo validation_errors(); ?>
+    <div class="wrapper">
+        <form class="form-signin" action="login" method="POST">
+             <h3 class="form-signin-heading">Bienvenue ! Veuillez vous connecter !</h3>
 
-  
+             <hr class="colorgraph"><br>    
 
-  <h4>Connexion</h4>
-<?php echo validation_errors(); ?>
-<?php echo form_open('login'); ?>
-
- 
-    <label for="email">Email</label>
-    <input type="text" class=" form_login form-control" id="email" placeholder="Email" name="email"  required>
-  
-    <label for="mdp">Mot de passe</label>
-    <input type="password" class="form_login form-control" id="mdp" placeholder="Mot de passe" name="mdp"  required>
-    </br>
-    <button class="btn btn-primary" type="submit">Valider</button>
-  
-     
-
+            <input type="text" class=" form-control" id="email" placeholder="Email" name="email" autofocus="" required>         
+            <input type="password" class=" form-control" id="mdp" placeholder="Mot de passe" name="mdp"  autofocus="" required>      
+           
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Valider</button>
+        </form>
+    </div>
 </div>
-</form>

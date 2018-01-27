@@ -6,10 +6,10 @@
   <div class="row">
         <div class="col-md-3">
          <div class="thumbnail">
-            <a href=""><img src="<?= base_url('assets/img/projets.jpg') ?> " style="width:100%" alt=""></a>
+            <a href="<?= site_url('projet') ?>"><img src="<?= base_url('assets/img/projets.jpg') ?> " style="width:100%" alt=""></a>
             <div class="caption">
               <h3 >
-                <a href="#">Projets</a>
+                <a href="<?= site_url('projet') ?>"">Projets</a>
               </h3>
               <p class="card-text">Consultation et création de projet</p>
             </div>
@@ -17,10 +17,10 @@
         </div>
         <div class="col-md-3">
          <div class="thumbnail">
-            <a href="<?= site_url('accueil/clients') ?>"><img  src="<?= base_url('assets/img/clients.png') ?>" style="width:100%" alt=""></a>
+            <a href="<?= site_url('client') ?>"><img  src="<?= base_url('assets/img/clients.png') ?>" style="width:100%" alt=""></a>
             <div class="caption">
               <h3 >
-                <a href="<?= site_url('accueil/clients') ?>">Clients</a>
+                <a href="<?= site_url('client') ?>">Clients</a>
               </h4>
               <p class="card-text">Consultation et création de client</p>
             </div>
@@ -51,6 +51,4 @@
         
   </div>
   <!-- /.row -->
-<p><?php echo anchor('login', 'Try it again!'); ?></p>
 
-<p><?= anchor('login/logout', 'Déconnexion'); ?></p>

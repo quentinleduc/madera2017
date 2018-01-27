@@ -37,12 +37,13 @@
 
     <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="'.site_url('accueil').'">Projets</a></li>
-                <li><a href="'.site_url('accueil/clients').'">Clients</a></li>
-                <li><a href="'.site_url('accueil/clients').'">Plans</a></li>
+                <li><a href="'.site_url('projet').'">Projets</a></li>
+                <li><a href="'.site_url('client').'">Clients</a></li>
+                <li><a href="'.site_url('client').'">Plans</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="'.site_url('accueil/mon_profil').'">Mon profil</a></li>
+                <li><a href="'.site_url('login/logout').'">Déconnexion</a></li>
             </ul>
         </div>
     </nav>

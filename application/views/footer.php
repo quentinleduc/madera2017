@@ -2,7 +2,8 @@
 	
 
 </div><!-- div container !-->
-	<footer id="site-footer" role="contentinfo">
+	<footer class="footertext" role="contentinfo">
+		<p>Powered by: Yassine S.A.A, Quentin L., Guillaume P. </p>
 	</footer><!-- #site-footer -->
 
 	<!-- js -->
