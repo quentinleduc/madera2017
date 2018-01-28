@@ -12,7 +12,7 @@
   </div>
 <br>
 <br>
-<a href="ajouter_projet" class="btn btn-primary" role="button">Ajouter un Projet</a>
+<a href="projet/ajouter_projet" class="btn btn-primary" role="button">Ajouter un Projet</a>
 <br>
 <br>
 <?php
