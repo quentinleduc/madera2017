@@ -70,6 +70,26 @@ Class User_model extends CI_Model
   }
 
 
+  function get_by_id($id){
+
+       $this -> db -> select('*');
+       $this -> db -> from($this->table);
+       $this -> db -> where('id_com', $id);
+       $this -> db -> limit(1);
+
+       $query = $this -> db -> get();
+
+       if($query -> num_rows() == 1)
+       {
+         return $query->row();
+       }
+       else
+       {
+         return null;
+       }
+  }
+
+
 
 
 

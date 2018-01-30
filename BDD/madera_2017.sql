@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `madera_2017`
 --
-
+CREATE DATABASE IF NOT EXISTS madera_2017;
+USE madera_2017;
 -- --------------------------------------------------------
 
 --

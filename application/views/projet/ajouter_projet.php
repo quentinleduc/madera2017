@@ -10,7 +10,7 @@
 <br>
 
 <h3>Le projet</h3>
-<?php echo form_open('projet/projet_client'); ?>
+<?php echo form_open('projet/ajouter_projet'); ?>
   <div class="form-row">
     <div class="form-group col-md-3">
       <label for="nomProjet">Nom du projet</label>
@@ -30,9 +30,8 @@
   <div class="form-row">
 
       <div class="form-group col-md-6">
-        <label for="nomGamme">Choisir la gamme</label>
-        <input type="hidden" class="form-control" id="idGamme" name="idGamme" >
-         <select id="nomGamme" name="nomGamme" class="form-control">
+        <label for="idGamme">Choisir la gamme</label>
+         <select id="idGamme" name="idGamme" class="form-control" required>
           <?php for($i = 0; $i < count($listeGammes);$i++ ){?>
         <option value="<?=$listeGammes[$i]['id_gam']?>"> <?= $listeGammes[$i]['nom_gam']." (".$listeGammes[$i]['ref_gam'].")"?></option>
         <?php }?>

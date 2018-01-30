@@ -22,43 +22,32 @@
   <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
           <thead>
             <tr>
-              <th>Reférence</th>
-              <th>Nom</th>
-              <th>Prenom</th>
-              <th>Adresse</th>
-              <th>Code postale</th>
-              <th>Téléphone</th>
-              <th>Email</th>
+              <th>Nom du projet</th>
+              <th>Référence du projet</th>
+              <th>Référence du client</th>
+              <th>Date création</th>
             </tr>
           </thead>
           <tfoot>
               <tr>
-                <th>Reférence</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Adresse</th>
-                <th>Code postale</th>
-                <th>Téléphone</th>
-                <th>Email</th>
+                <th>Nom du projet</th>
+                <th>Référence du projet</th>
+                <th>Référence du client</th>
+                <th>Date création</th>
               </tr>
           </tfoot>
           <tbody>
                
-                 <?php foreach ($listeProjets as $cli){ 
-
-                      for($i = 0;$i<count($cli);$i++){
-                        $id = $cli[$i]['id_cli']; ?>
+                
+              <?php  for($i = 0;$i<count($listeProjets);$i++){
+                        $id = $listeProjets[$i]['id_cli']; ?>
               <tr>
-                  <td><?= anchor('modifier_client/'.$id,$cli[$i]['ref_cli']) ?></td>
-                  <td><?= $cli[$i]['nom_cli']  ?></td>
-                  <td><?= $cli[$i]['prenom_cli']  ?></td>
-                  <td><?= $cli[$i]['adresse_cli']  ?></td>
-                  <td><?= $cli[$i]['code_postal_cli']  ?></td>
-                  <td><?= $cli[$i]['telephone_cli']  ?></td>
-                  <td><?= $cli[$i]['email_cli'] ?></td>
+                  <td><?= anchor('projet/consulter_projet/'.$id,$listeProjets[$i]['nom_projet']) ?></td>
+                  <td><?= $listeProjets[$i]['ref_projet']  ?></td>
+                  <td><?=  anchor('client/modifier_client/'.$listeProjets[$i]['id_cli'],$listeProjets[$i]['nom_cli'])  ?></td>
+                  <td><?= $listeProjets[$i]['date_projet']  ?></td>
                   <?php } ?>
               </tr>
-              <?php }?>
               
 
 
