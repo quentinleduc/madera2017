@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Sam 27 Janvier 2018 à 16:54
--- Version du serveur :  5.7.20-0ubuntu0.16.04.1
--- Version de PHP :  7.0.22-0ubuntu0.16.04.1
+-- Hôte : 127.0.0.1
+-- Généré le :  mer. 31 jan. 2018 à 17:28
+-- Version du serveur :  10.1.25-MariaDB
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -39,12 +41,13 @@ CREATE TABLE `clients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `clients`
+-- Déchargement des données de la table `clients`
 --
 
 INSERT INTO `clients` (`id_cli`, `ref_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `code_postal_cli`, `telephone_cli`, `email_cli`) VALUES
 (1, '', 'Paul', 'Pogba', 'Manchester', '55000', '024544', 'paul.pob@ppb.com'),
-(2, '', 'Vandame', 'Jean-Claude', 'Paris', '75000', '0666666', 'jc.v@jcv.com');
+(2, '', 'Vandame', 'Jean-Claude', 'Paris', '75000', '0666666', 'jc.v@jcv.com'),
+(3, 'TOTO#toto#', 'Dupond', 'Toto', 'Marseille', '13000', '066666', 'toto@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -56,6 +59,20 @@ CREATE TABLE `cli_projet` (
   `id_cli` int(10) NOT NULL,
   `id_projet` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `cli_projet`
+--
+
+INSERT INTO `cli_projet` (`id_cli`, `id_projet`) VALUES
+(3, 3),
+(3, 5),
+(1, 6),
+(1, 7),
+(2, 8),
+(2, 9),
+(1, 10),
+(2, 11);
 
 -- --------------------------------------------------------
 
@@ -75,7 +92,7 @@ CREATE TABLE `commercials` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `commercials`
+-- Déchargement des données de la table `commercials`
 --
 
 INSERT INTO `commercials` (`id_com`, `ref_com`, `nom_com`, `prenom_com`, `telephone_com`, `email_com`, `mdp_com`, `actif_com`) VALUES
@@ -93,17 +110,17 @@ CREATE TABLE `composant` (
   `ref_compo` varchar(30) NOT NULL,
   `nom_compo` varchar(30) NOT NULL,
   `caracteristique_compo` varchar(100) NOT NULL,
-  `uniter_usage_compo` varchar(100) NOT NULL,
+  `unite_usage_compo` varchar(100) NOT NULL,
   `description` varchar(255) NOT NULL,
   `prix` float NOT NULL,
-  `quantité` float NOT NULL
+  `quantite` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `composant`
+-- Déchargement des données de la table `composant`
 --
 
-INSERT INTO `composant` (`id_composant`, `id_famille`, `ref_compo`, `nom_compo`, `caracteristique_compo`, `uniter_usage_compo`, `description`, `prix`, `quantité`) VALUES
+INSERT INTO `composant` (`id_composant`, `id_famille`, `ref_compo`, `nom_compo`, `caracteristique_compo`, `unite_usage_compo`, `description`, `prix`, `quantite`) VALUES
 (1, 6, 'boulon', 'Boulon', '', 'Pièce', 'Boulon', 0, 500),
 (2, 4, 'ardoise', 'Ardoise', '', 'Pièce', 'Ardoise', 0, 600),
 (3, 2, 'lame_bardage_bois', 'Lame de bardage bois', '', 'Mètre', '', 0, 500);
@@ -129,6 +146,20 @@ CREATE TABLE `com_projet` (
   `id_com` int(10) NOT NULL,
   `id_projet` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `com_projet`
+--
+
+INSERT INTO `com_projet` (`id_com`, `id_projet`) VALUES
+(1, 3),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11);
 
 -- --------------------------------------------------------
 
@@ -156,7 +187,7 @@ CREATE TABLE `famille_composant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `famille_composant`
+-- Déchargement des données de la table `famille_composant`
 --
 
 INSERT INTO `famille_composant` (`id_famille`, `famille`) VALUES
@@ -165,7 +196,8 @@ INSERT INTO `famille_composant` (`id_famille`, `famille`) VALUES
 (3, 'Panneaux intérieurs'),
 (4, 'Couverture'),
 (5, 'Montant'),
-(6, 'Élément de montage');
+(6, 'Élément de montage'),
+(7, 'P. d’isolation et  pare-pluie');
 
 -- --------------------------------------------------------
 
@@ -199,7 +231,7 @@ CREATE TABLE `gamme` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `gamme`
+-- Déchargement des données de la table `gamme`
 --
 
 INSERT INTO `gamme` (`id_gam`, `ref_gam`, `nom_gam`, `finition_gam`, `isolant_gam`, `type_couverture_gam`, `huisserie_gam`, `description`) VALUES
@@ -216,7 +248,7 @@ INSERT INTO `gamme` (`id_gam`, `ref_gam`, `nom_gam`, `finition_gam`, `isolant_ga
 CREATE TABLE `module` (
   `id_module` int(10) NOT NULL,
   `ref_module` varchar(30) NOT NULL,
-  `coup_module` varchar(100) NOT NULL,
+  `coupe_module` varchar(100) NOT NULL,
   `cctp_module` varchar(20) NOT NULL,
   `description_module` varchar(1000) NOT NULL,
   `prix_module` float NOT NULL,
@@ -225,10 +257,10 @@ CREATE TABLE `module` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `module`
+-- Déchargement des données de la table `module`
 --
 
-INSERT INTO `module` (`id_module`, `ref_module`, `coup_module`, `cctp_module`, `description_module`, `prix_module`, `angle_module`, `nom_module`) VALUES
+INSERT INTO `module` (`id_module`, `ref_module`, `coupe_module`, `cctp_module`, `description_module`, `prix_module`, `angle_module`, `nom_module`) VALUES
 (1, 'projet1_mur_exterieur', 'Droite', '', 'Mur extérieur Projet 1', 0, 90, 'Mur extérieur Projet 1'),
 (2, 'projet1_plancher', 'Droite', '', 'Plancher Projet 1', 0, 90, 'Plancher Projet 1'),
 (3, 'projet1_couverture', 'Droite', '', 'Couverture Projet 1', 0, 120, 'Couverture Projet 1');
@@ -242,7 +274,7 @@ INSERT INTO `module` (`id_module`, `ref_module`, `coup_module`, `cctp_module`, `
 CREATE TABLE `mod_compo` (
   `id_mod` int(10) NOT NULL,
   `id_compo` int(10) NOT NULL,
-  `quantiter` int(11) NOT NULL
+  `quantite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -259,6 +291,20 @@ CREATE TABLE `projet` (
   `nom_projet` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `projet`
+--
+
+INSERT INTO `projet` (`id_projet`, `id_gamme`, `ref_projet`, `date_projet`, `nom_projet`) VALUES
+(3, 1, 'projet1_Dupond_1', '0000-00-00', 'projet1'),
+(5, 1, 'projet1bis_Dupond_#Gamme1', '0000-00-00', 'projet1bis'),
+(6, 2, 'projet2_Paul_#Gamme2', '0000-00-00', 'projet2'),
+(7, 3, 'projet2bis_Paul_#Gamme3', '2030-01-18', 'projet2bis'),
+(8, 1, 'projet3_Vandame_#Gamme1', '0000-00-00', 'projet3'),
+(9, 2, 'projet3bis_Vandame_#Gamme2', '2030-01-18', 'projet3bis'),
+(10, 3, 'projet4_Paul_#Gamme3', '0000-00-00', 'projet4'),
+(11, 1, 'projet4bis_Vandame_#Gamme1', '2018-01-30', 'projet4bis');
+
 -- --------------------------------------------------------
 
 --
@@ -272,7 +318,7 @@ CREATE TABLE `projet_mod` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -298,8 +344,7 @@ ALTER TABLE `commercials`
 -- Index pour la table `composant`
 --
 ALTER TABLE `composant`
-  ADD PRIMARY KEY (`id_composant`),
-  ADD UNIQUE KEY `id_famille` (`id_famille`);
+  ADD PRIMARY KEY (`id_composant`);
 
 --
 -- Index pour la table `compo_fourni`
@@ -358,7 +403,7 @@ ALTER TABLE `mod_compo`
 --
 ALTER TABLE `projet`
   ADD PRIMARY KEY (`id_projet`),
-  ADD UNIQUE KEY `id_gamme` (`id_gamme`);
+  ADD KEY `fk_gamme_projet` (`id_gamme`);
 
 --
 -- Index pour la table `projet_mod`
@@ -368,14 +413,14 @@ ALTER TABLE `projet_mod`
   ADD KEY `id_mod` (`id_mod`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
 -- AUTO_INCREMENT pour la table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id_cli` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cli` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `commercials`
 --
@@ -395,7 +440,7 @@ ALTER TABLE `devis`
 -- AUTO_INCREMENT pour la table `famille_composant`
 --
 ALTER TABLE `famille_composant`
-  MODIFY `id_famille` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_famille` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pour la table `fournisseur`
 --
@@ -415,9 +460,9 @@ ALTER TABLE `module`
 -- AUTO_INCREMENT pour la table `projet`
 --
 ALTER TABLE `projet`
-  MODIFY `id_projet` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_projet` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables déchargées
 --
 
 --
@@ -472,6 +517,7 @@ ALTER TABLE `projet`
 ALTER TABLE `projet_mod`
   ADD CONSTRAINT `fk_module_projet` FOREIGN KEY (`id_mod`) REFERENCES `module` (`id_module`),
   ADD CONSTRAINT `fk_projet_module` FOREIGN KEY (`id_projet`) REFERENCES `projet` (`id_projet`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

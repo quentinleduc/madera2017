@@ -57,4 +57,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['client'] = 'client';
 $route['client/(.*)'] = 'client/$1';
 $route['projet'] = 'projet';
-$route['projet/(.*)'] = 'projet/$1';
+$route['projet/(:any)'] = 'projet/$1';

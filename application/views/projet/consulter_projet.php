@@ -1,24 +1,47 @@
 <?php if(!defined('BASEPATH')) exit('Direct Access Not Allowed');?>
+
+<div id="msg">
+    <!-- on affiche le message de notifications !-->
+    <?php if($this->session->flashdata('msg')){ echo $this->session->flashdata('msg'); } ?>
+</div>
 <h1>Consultation projet et devis</h1>
 
 <div class="panel-group">
 	<div class="panel panel-primary">
       <div class="panel-heading">Devis</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-body">
+      	<?php
+		 if(isset($devis)){
+		  ?>
+	      	<p>Etat devis : <?= $devis->etat_devis ?></p> 
+	      	<p>Référence  : <?= $devis->ref_devis ?></p>
+	      	<p>Montant  : <?= $devis->montant_devis_ht ?></p>
+	      	<?php if($devis->etat_devis == 'Brouillon'){?>
+		      	<a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider</a>
+			                  
+	      	<?php }else if($devis->etat_devis == 'Validé'){?>
+		      	<a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Payer</a>
+			    <a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Annuler</a>             
+	      	<?php }?>
+      	<?php }?>
+      </div>
     </div>
     <div class="panel panel-primary">
       <div class="panel-heading">Le projet</div>
       <div class="panel-body">
       	<p>Nom projet : <?= $projet->nom_projet ?></p> 
-      	<p>Client: <?= $client->nom_cli ?></p>  
+      	<p>Client: <?= $client->nom_cli.' '.$client->prenom_cli ?></p>  
       	<p>Date de création du projet : <?= $projet->date_projet ?></p> 
-      	<p>Suivi par : <?= $commercial->nom_com ?></p> 
-      	<p>Gamme : </p> 
+      	<p>Suivi par : <?= $commercial->nom_com.' '.$commercial->prenom_com ?></p> 
+      	<p>Gamme : <?= $gamme->nom_gam ?></p> 
       	<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#gamme">Afficher les caractéristiques de la gamme</button>
 	    <div id="gamme" class="collapse">
-		    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-		    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		    <p>Référence de la gamme : <?= $gamme->ref_gam ?></p> 
+		    <p>Finition : <?= $gamme->finition_gam ?></p> 
+		    <p>Isolant : <?= $gamme->isolant_gam ?></p> 
+		    <p>Type de couverture : <?= $gamme->type_couverture_gam ?></p> 
+		    <p>Huisserie : <?= $gamme->huisserie_gam ?></p> 
+		    <p>Descritpion : <?= $gamme->description ?></p> 
 	    </div>
       </div>
 
@@ -31,7 +54,7 @@
 	                    <h3 class="panel-title">Les modules du projet</h3>
 	                  </div>
 	                  <div class="col col-xs-6 text-right">
-	                    <button type="button" class="btn btn-sm btn-primary btn-create">Ajouter un module</button>
+	                  	<a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Ajouter un module</a>
 	                  </div>
 	                </div>
 	        </div>
@@ -54,19 +77,25 @@
 		                    </tr> 
 		                  </thead>
 		                  <tbody>
+		                  	<?php  for($i = 0;$i<count($listeModules);$i++){
+		                            	$id = $listeModules[$i]['id_module']; ?>
 		                          <tr>
 		                            <td align="center">
 		                              <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
 		                              <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+
 		                            </td>
-		                            <td >1</td>
-		                            <td>John Doe</td>
-		                            <td>johndoe@example.com</td>
-		                            <td>johndoe@example.com</td>
-		                            <td>johndoe@example.com</td>
-		                            <td>johndoe@example.com</td>
-		                            <td>johndoe@example.com</td>
+		                            
+		                            <td ><?= anchor('projet/consulter_module/'.$id,$listeModules[$i]['ref_module']) ?></td>
+		                            <td><?= $listeModules[$i]['nom_module']  ?></td>
+		                            <td><?= $listeModules[$i]['coupe_module']  ?></td>
+		                            <td><?= $listeModules[$i]['cctp_module']  ?></td>
+		                            <td><?= $listeModules[$i]['description_module']  ?></td>
+		                            <td><?= $listeModules[$i]['prix_module']  ?></td>
+		                            <td><?= $listeModules[$i]['angle_module']  ?></td>
+		                             
 		                          </tr>
+		                          <?php } ?>
 		                        </tbody>
 		                </table>
 		            </div>

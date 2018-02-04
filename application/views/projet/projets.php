@@ -40,7 +40,7 @@
                
                 
               <?php  for($i = 0;$i<count($listeProjets);$i++){
-                        $id = $listeProjets[$i]['id_cli']; ?>
+                        $id = $listeProjets[$i]['id_projet']; ?>
               <tr>
                   <td><?= anchor('projet/consulter_projet/'.$id,$listeProjets[$i]['nom_projet']) ?></td>
                   <td><?= $listeProjets[$i]['ref_projet']  ?></td>
