@@ -1,5 +1,5 @@
 body{
-	background-image: url("../img/fond.jpg");
+	background-image: url("../img/fond2.jpg");
 	color: black;
 	position:relative;
 		
@@ -14,6 +14,7 @@ header{
   right: 0,
   borderBottomWidth: 0 ;
 }
+
 
 #Formulaire_login,#Formulaire_mdp
 {
@@ -153,4 +154,21 @@ used to vertically center elements, may need modification if you're not using de
 
 .panel-table .panel-body .table-bordered > tbody > tr > td{
   line-height: 34px;
+}
+
+.checkbox {
+  label{
+    width: 200px;
+  }
+
+}
+
+#BoxComposant{
+  flex-basis:0;
+    flex-grow:1;
+}
+
+#BoxComposant button{
+  position: relative;
+
 }

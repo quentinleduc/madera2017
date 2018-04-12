@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
-<h1>Ajout d'un module</h1>
+<h1>Ajout d'un composant</h1>
 <div id="msg">
     <!-- on affiche le message de notifications !-->
     <?php if($this->session->flashdata('msg')){ echo $this->session->flashdata('msg'); } ?>
@@ -9,41 +9,15 @@
 <br>
 <br>
 
-<?php echo form_open('projet/ajouter_module'); ?>
+<?php echo form_open('projet/ajouter_composant'); ?>
   <div class="form-row">
-    <div class="form-group col-md-6">
-     <?php  $idProjet = $this->uri->segment(3);?>
-     <input type="hidden" class="form-control" id="idprojet" name="idprojet" value="<?= $idProjet ?>">
-      <label for="nomModule">Nom du module</label>
-      <input type="text" class="form-control" id="nomModule" name="nomModule" placeholder="Ex : Mur extérieur"  required>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="coupe">Coupe</label>
-      <input type="text" class="form-control" id="coupe" name="coupe" placeholder="Ex : Droite, en travers de mur ..."  required>
-    </div>
+      <div class="form-group col-md-6">
+         <?php  $idProjet = $this->uri->segment(4);?>
+         <?php  $idModule = $this->uri->segment(3);?>
+         <input type="hidden" class="form-control" id="idProjet" name="idProjet" value="<?= $idProjet ?>">
+         <input type="hidden" class="form-control" id="idModule" name="idModule" value="<?= $idModule ?>">
+      </div>
   </div>
-  <div class="form-group col-md-5">
-    <label for="cctp">CCTP</label>
-    <select id="cctp" name="cctp" class="form-control" required>
-        <option value="Dalle béton">Dalle béton</option>
-        <option value ="Plots béton">Plots béton</option>
-    </select>
-  </div>
-  <div class="form-group col-md-5">
-    <label for="carac_cctp">Caractéristique(s) CCTP </label>
-   <input type="number" class="form-control" id="carac_cctp" name="carac_cctp" placeholder="Pour une Dalle beton , renseigner la surface au m2"  required>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-4">
-      <label for="description">Descritpion</label>
-      <input type="text" class="form-control" id="description" name="description"  required>
-    </div>
-    <div class="form-group col-md-6">
-      <label for="angle">Angle</label>
-      <input type="number" class="form-control" id="angle" name="angle" value="90" required>
-    </div>
-  </div>
-
   <div class="form-row">
 
     <div class="form-group col-md-4">

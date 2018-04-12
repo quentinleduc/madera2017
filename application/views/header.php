@@ -38,7 +38,7 @@
 
     <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="'.site_url('projet').'">Projets</a></li>
+                <li><a href="'.site_url('projet').'">Devis</a></li>
                 <li><a href="'.site_url('client').'">Clients</a></li>
                 <li><a href="'.site_url('client').'">Plans</a></li>
             </ul>

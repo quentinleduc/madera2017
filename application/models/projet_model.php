@@ -115,7 +115,8 @@ Class Projet_model extends CI_Model
 	     $query = $this -> db -> get();
 	     if($query -> num_rows() == 1)
 	     {
-	       return $query->row();
+	       $ret = $query->row();
+	       return $ret->ref_projet;
 	     }
 	     else
 	     {
@@ -191,6 +192,25 @@ Class Projet_model extends CI_Model
 	     }
 	}
 
+	function get_module($idModule,$idProjet){
+		$req = ' SELECT *
+				FROM module m, projet_mod pm
+				WHERE pm.id_projet ='.$idProjet.'
+				AND m.id_module = '.$idModule.'
+				AND pm.id_mod ='.$idModule;
+
+	     $query = $this -> db -> query($req);
+
+	     if($query -> num_rows() > 0)
+	     {
+	       return $query->result_array();
+	     }
+	     else
+	     {
+	       return null;
+	     }
+	}
+
 
 	//retoune l'id inséré
 	public function create_module($projet,$nom_module,$coupe_module,$cctp,$description,$angle,$prix){
@@ -220,10 +240,97 @@ Class Projet_model extends CI_Model
 	return $idModule;
   }
 
+
+
+  function get_module_with_projet($idModule,$idProjet){
+
+  	$this -> db -> select('*');
+   $this -> db -> from($this->tableModule);
+   $this -> db -> where('id_module', $idModule);
+   $this -> db -> limit(1);
+
+   $query = $this -> db -> get();
+
+   if($query -> num_rows() == 1)
+   {
+     return $query->row();
+   }
+   else
+   {
+     return null;
+   }
+  }
+
+  function update_module($idModule,$nom_module, $coupe_module, $description,$angle){
+  	$data = array(
+        'nom_module' => $nom_module,
+        'coupe_module' => $coupe_module,
+        'description_module' => $description,
+        'angle_module' => $angle
+    );
+
+    $this->db->where('id_module', $idModule);
+    $this->db->update($this->tableModule, $data);
+
+  }
+
+  function update_prix_module($idModule,$prix){
+
+  	$data = array(
+        'prix_module' => $prix
+    );
+
+    $this->db->where('id_module', $idModule);
+    $this->db->update($this->tableModule, $data);
+  }
+
+  function get_prix_module($idModule){
+
+  	$req = ' SELECT prix_module
+				FROM module
+				WHERE id_module ='.$idModule;
+
+	     $query = $this -> db -> query($req);
+
+	 if($query -> num_rows() == 1)
+	 {
+	   $ret = $query->row();
+	   return $ret;
+	 }
+	 else
+	 {
+	   return null;
+	 }
+
+  }
+
+  function supprimer_module($idModule,$idProjet){
+  	//suppression dans mod_compo
+  	/*$req = 'DELETE FROM mod_compo WHERE id_mod = '.$idModule;
+
+  	$query = $this -> db -> query($req);
+
+  	//suppression dans projet_compo
+  	$req1 = 'DELETE FROM projet_mod WHERE id_mod = '.$idModule;
+  	$query = $this -> db -> query($req1);
+
+  	//suppression dans module
+  	$req1 = 'DELETE FROM module WHERE id_module = '.$idModule;
+  	$query = $this -> db -> query($req2);*/
+  	$this->db->where('id_mod', $idModule);
+	$this->db->delete($this->tableModCompo);
+
+	$this->db->where('id_mod', $idModule);
+	$this->db->delete($this->tableProjetMod);
+
+	$this->db->where('id_module', $idModule);
+	$this->db->delete($this->tableModule);
+  }
+
 	//-----------Composants------------
 
 	function get_all_composants($idModule){
-		$req = ' SELECT *
+		$req = ' SELECT id_famille,id_composant,ref_compo,nom_compo,caracteristique_compo,unite_usage_compo,description,prix,quantite
 				FROM composant c, mod_compo mc
 				WHERE mc.id_mod ='.$idModule.'
 				 AND mc.id_compo  = c.id_composant';
@@ -240,7 +347,7 @@ Class Projet_model extends CI_Model
 	     }
 	}
 
-	public function create_composant($idModule,$id_famille,$nom_compo,$caracteristique_compo,$unite,$description,$quantite){
+	public function create_composant($idModule,$id_famille,$nom_compo,$caracteristique_compo,$unite,$description,$quantite,$prix){
 
   	$ref = $nom_compo.'#'.$id_famille;
 
@@ -251,6 +358,7 @@ Class Projet_model extends CI_Model
         'caracteristique_compo' => $caracteristique_compo,
         'unite_usage_compo' => $unite,
         'description' => $description,
+        'prix' => $prix,
         'quantite' => $quantite
 
 	);
@@ -269,9 +377,9 @@ Class Projet_model extends CI_Model
   }
 
 
-  //-----------Composants------------
+  //-----------Devis------------
 
-  public function create_devis($projet){
+  public function create_devis($projet,$module){
   	$ref = 'Devis du projet : '.$projet->nom_projet." ; référence  : ".$projet->ref_projet;
 
   	$data = array(
@@ -285,19 +393,90 @@ Class Projet_model extends CI_Model
   }
 
   function get_devis($idProjet){
-		 $this -> db -> select('*');
-	     $this -> db -> from($this->tableDevis);
-	     $this -> db -> where('id_projet', $idProjet);
-	     $this -> db -> limit(1);
-	     $query = $this -> db -> get();
-	     if($query -> num_rows() == 1)
-	     {
-	       return $query->row();
-	     }
-	     else
-	     {
-	       return null;
-	     }
-	}
+  	$this -> db -> select('*');
+	 $this -> db -> from($this->tableDevis);
+	 $this -> db -> where('id_projet', $idProjet);
+	 $this -> db -> limit(1);
+
+	 $query = $this -> db -> get();
+
+	 if($query -> num_rows() == 1)
+	 {
+	   return $query->row();
+	 }
+	 else
+	 {
+	   return null;
+	 }
+
+  }
+
+
+  function get_prix_devis($idProjet){
+
+  	$req = ' SELECT montant_devis_ht
+				FROM devis
+				WHERE id_projet ='.$idProjet;
+
+	     $query = $this -> db -> query($req);
+
+	 if($query -> num_rows() == 1)
+	 {
+	   $ret = $query->row();
+	   return $ret;
+	 }
+	 else
+	 {
+	   return null;
+	 }
+
+  }
+
+  function get_etat_devis($idProjet){
+  	$this -> db -> select('etat_devis');
+	 $this -> db -> from($this->tableDevis);
+	 $this -> db -> where('id_projet', $idProjet);
+	 $this -> db -> limit(1);
+
+	 $query = $this -> db -> get();
+
+	 if($query -> num_rows() == 1)
+	 {
+	   return $query->row();
+	 }
+	 else
+	 {
+	   return null;
+	 }
+
+  }
+
+		 
+		
+  function update_prix_devis($idProjet,$prix){
+
+  	$data = array(
+        'montant_devis_ht' => $prix
+    );
+
+    $this->db->where('id_projet', $idProjet);
+    $this->db->update($this->tableDevis, $data);
+  }
+
+
+
+  function update_etat_devis($idDevis,$idProjet,$etat){
+
+  	$data = array(
+        'etat_devis' => $etat
+    );
+
+    $this->db->where('id_projet', $idProjet);
+    $this->db->where('id_devis', $idDevis);
+    $this->db->update($this->tableDevis, $data);
+  }
+
+ 
+
 
 }

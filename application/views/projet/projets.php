@@ -1,6 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('Direct Access Not Allowed');?>
 
-<h1>Projets</h1>
+<h1>Projets et Devis</h1>
 
 <div id="msg">
     <!-- on affiche le message de notifications !-->
@@ -12,7 +12,7 @@
   </div>
 <br>
 <br>
-<a href="projet/ajouter_projet" class="btn btn-primary" role="button">Ajouter un Projet</a>
+<a href="projet/ajouter_projet" class="btn btn-primary" role="button">Ajouter un Devis</a>
 <br>
 <br>
 <?php

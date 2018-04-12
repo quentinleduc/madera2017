@@ -6,6 +6,9 @@
 </div>
 <h1>Consultation projet et devis</h1>
 
+<a href="<?=site_url('projet')?>" class="btn btn-sm btn-primary btn-create" role="button">Retour</a>
+<br>
+<br>
 <div class="panel-group">
 	<div class="panel panel-primary">
       <div class="panel-heading">Devis</div>
@@ -15,14 +18,23 @@
 		  ?>
 	      	<p>Etat devis : <?= $devis->etat_devis ?></p> 
 	      	<p>Référence  : <?= $devis->ref_devis ?></p>
-	      	<p>Montant  : <?= $devis->montant_devis_ht ?></p>
+	      	<p>Montant  : <?= $devis->montant_devis_ht .'€'?></p>
 	      	<?php if($devis->etat_devis == 'Brouillon'){?>
-		      	<a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider</a>
+		      	<a href="http://localhost/madera/index.php/projet/valider_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider</a>
 			                  
 	      	<?php }else if($devis->etat_devis == 'Validé'){?>
-		      	<a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Payer</a>
-			    <a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Annuler</a>             
+		      	<a href="http://localhost/madera/index.php/projet/payer_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Payer</a>
+			    <a href="http://localhost/madera/index.php/projet/annuler_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Annuler</a>             
+	      	<?php }
+
+	      	 else if($devis->etat_devis == 'Payé'){?>
+		      	<p> <b> Devis payé  </b></p>
+	      	<?php }
+
+	      	 else if($devis->etat_devis == 'Annulé'){?>
+		      	<a href="http://localhost/madera/index.php/projet/valider_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider</a>             
 	      	<?php }?>
+
       	<?php }?>
       </div>
     </div>
@@ -81,12 +93,12 @@
 		                            	$id = $listeModules[$i]['id_module']; ?>
 		                          <tr>
 		                            <td align="center">
-		                              <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-		                              <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+		                              <a href="<?=site_url('projet/consulter_module/'.$id.'/'.$projet->id_projet ) ?>" class="btn btn-default"><em class="fa fa-pencil"></em></a>
+		                              <a href="<?=site_url('projet/supprimer_module/'.$id.'/'.$projet->id_projet ) ?>" class="btn btn-danger"><em class="fa fa-trash"></em></a>
 
 		                            </td>
 		                            
-		                            <td ><?= anchor('projet/consulter_module/'.$id,$listeModules[$i]['ref_module']) ?></td>
+		                            <td ><?= $listeModules[$i]['ref_module'] ?></td>
 		                            <td><?= $listeModules[$i]['nom_module']  ?></td>
 		                            <td><?= $listeModules[$i]['coupe_module']  ?></td>
 		                            <td><?= $listeModules[$i]['cctp_module']  ?></td>

@@ -9,6 +9,11 @@
 <br>
 <br>
 
+<a href="<?=site_url('client') ?>" class="btn btn-sm btn-primary btn-create" role="button">Retour</a>
+
+<br>
+<br>
+
 <?php echo form_open('client/modifier_client'); ?>
   <div class="form-row">
     <div class="form-group col-md-6">

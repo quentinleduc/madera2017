@@ -9,7 +9,7 @@
             <a href="<?= site_url('projet') ?>"><img src="<?= base_url('assets/img/projets.jpg') ?> " style="width:100%" alt=""></a>
             <div class="caption">
               <h3 >
-                <a href="<?= site_url('projet') ?>"">Projets</a>
+                <a href="<?= site_url('projet') ?>"">Devis</a>
               </h3>
               <p class="card-text">Consultation et création de projet</p>
             </div>
