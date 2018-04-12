@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 03 Avril 2018 à 21:41
+-- Généré le :  Jeu 12 Avril 2018 à 08:49
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -19,8 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `madera_2017`
 --
-CREATE DATABASE IF NOT EXISTS madera_2017;
-USE madera_2017;
+
 -- --------------------------------------------------------
 
 --
@@ -163,7 +162,12 @@ INSERT INTO `composant` (`id_composant`, `id_famille`, `ref_compo`, `nom_compo`,
 (40, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', NULL, 50),
 (41, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', NULL, 50),
 (42, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', NULL, 56),
-(43, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', NULL, 50);
+(43, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', NULL, 50),
+(45, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', 125, 5),
+(46, 2, 'Panneau extérieur#2', 'Panneau extérieur', '', 'Mètre', '', 575, 23),
+(47, 5, 'Lisses#5', 'Lisses', '', 'Longeur en cm', '', 1400, 56),
+(48, 5, 'Montants verticaux#5', 'Montants verticaux', '', 'Longeur en cm', '', 500, 20),
+(49, 6, 'Goujons de fixation#6', 'Goujons de fixation', '', 'Pièce', '', 650, 26);
 
 -- --------------------------------------------------------
 
@@ -223,8 +227,8 @@ CREATE TABLE `devis` (
 --
 
 INSERT INTO `devis` (`id_devis`, `id_projet`, `ref_devis`, `montant_devis_ht`, `etat_devis`) VALUES
-(1, 13, 'Devis du projet : projet mader', 2610, 'B'),
-(2, 14, 'Devis du projet : test ; référ', 3501, 'Brouillon');
+(1, 13, 'Devis du projet : projet mader', 2610, 'Payé'),
+(2, 14, 'Devis du projet : test ; référ', 6751, 'Brouillon');
 
 -- --------------------------------------------------------
 
@@ -367,12 +371,11 @@ INSERT INTO `module` (`id_module`, `ref_module`, `coupe_module`, `cctp_module`, 
 (53, 'projet1_Mur extérieur', 'droite', 'Dalle béton', 'gh,;g', 2340, 90, 'Mur extérieur'),
 (54, 'projet1_Mur extérieur', 'droite', 'Dalle béton', 'gh,;g', 2340, 90, 'Mur extérieur'),
 (55, 'projet1_Mur extérieur', 'droite', 'Dalle béton', 'gh,;g', 2340, 90, 'Mur extérieur'),
-(56, 'projet madera_Mur extérieur', 'Droite', 'Dalle béton', 'kjg', 1080, 90, 'Mur extérieur'),
+(56, 'projet madera_Mur extérieur', 'Droite', 'Dalle béton', 'test', 1080, 90, 'Mur extérieur'),
 (57, 'projet madera_Mur extérieur', 'Gauche', 'Plots béton', 'plots', 75, 0, 'Mur extérieur'),
-(58, 'projet madera_Mur extérieur', 'Droite', 'Dalle béton', 'dalle', 2655, 90, 'Mur extérieur'),
 (59, 'projet madera_Mur extérieur', 'Gauche', 'Dalle béton', 'gauche', 2610, 180, 'Mur extérieur'),
-(60, 'test_Mur extérieur', 'Droite', 'Dalle béton', 'test', 810, 180, 'Mur extérieur'),
-(61, 'test_Mur extérieur', 'Gauche', 'Dalle béton', 'test2', 810, 180, 'Mur extérieur'),
+(60, 'test_Mur extérieur', 'Droite', 'Dalle béton', 'test changement', 3535, 180, 'Mur extérieur'),
+(61, 'test_Mur extérieur', 'Gauche', 'Dalle béton', 'test2', 1460, 180, 'Mur extérieur'),
 (62, 'test_Mur extérieur', 'devant', 'Dalle béton', 'test', 3955, 90, 'Mur extérieur'),
 (63, 'test_Mur extérieur', 'en travers', 'Dalle béton', 'efefe', 9800, 90, 'Mur extérieur'),
 (64, 'test_Mur intérieur', 'centrale', 'Dalle béton', 'gyk,gy', 3770, 90, 'Mur intérieur'),
@@ -391,53 +394,56 @@ INSERT INTO `module` (`id_module`, `ref_module`, `coupe_module`, `cctp_module`, 
 
 CREATE TABLE `mod_compo` (
   `id_mod` int(10) NOT NULL,
-  `id_compo` int(10) NOT NULL,
-  `quantite` int(11) NOT NULL
+  `id_compo` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `mod_compo`
 --
 
-INSERT INTO `mod_compo` (`id_mod`, `id_compo`, `quantite`) VALUES
-(24, 6, 0),
-(26, 7, 0),
-(28, 8, 0),
-(29, 9, 0),
-(30, 10, 0),
-(32, 11, 0),
-(33, 12, 0),
-(35, 13, 0),
-(36, 14, 0),
-(38, 15, 0),
-(39, 16, 0),
-(41, 17, 0),
-(42, 18, 0),
-(43, 19, 0),
-(45, 20, 0),
-(46, 21, 0),
-(47, 22, 0),
-(49, 23, 0),
-(50, 24, 0),
-(51, 25, 0),
-(53, 26, 0),
-(54, 27, 0),
-(55, 28, 0),
-(56, 29, 0),
-(57, 30, 0),
-(58, 31, 0),
-(59, 32, 0),
-(60, 33, 0),
-(61, 34, 0),
-(62, 35, 0),
-(63, 36, 0),
-(64, 37, 0),
-(65, 38, 0),
-(66, 39, 0),
-(67, 40, 0),
-(68, 41, 0),
-(69, 42, 0),
-(70, 43, 0);
+INSERT INTO `mod_compo` (`id_mod`, `id_compo`) VALUES
+(24, 6),
+(26, 7),
+(28, 8),
+(29, 9),
+(30, 10),
+(32, 11),
+(33, 12),
+(35, 13),
+(36, 14),
+(38, 15),
+(39, 16),
+(41, 17),
+(42, 18),
+(43, 19),
+(45, 20),
+(46, 21),
+(47, 22),
+(49, 23),
+(50, 24),
+(51, 25),
+(53, 26),
+(54, 27),
+(55, 28),
+(56, 29),
+(57, 30),
+(59, 32),
+(60, 33),
+(61, 34),
+(62, 35),
+(63, 36),
+(64, 37),
+(65, 38),
+(66, 39),
+(67, 40),
+(68, 41),
+(69, 42),
+(70, 43),
+(60, 45),
+(60, 46),
+(60, 47),
+(60, 48),
+(61, 49);
 
 -- --------------------------------------------------------
 
@@ -537,7 +543,6 @@ INSERT INTO `projet_mod` (`id_projet`, `id_mod`, `num_mod`) VALUES
 (3, 55, 0),
 (12, 56, 0),
 (12, 57, 0),
-(13, 58, 0),
 (13, 59, 0),
 (14, 60, 0),
 (14, 61, 0),
@@ -665,7 +670,7 @@ ALTER TABLE `commercials`
 -- AUTO_INCREMENT pour la table `composant`
 --
 ALTER TABLE `composant`
-  MODIFY `id_composant` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_composant` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT pour la table `devis`
 --
