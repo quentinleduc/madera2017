@@ -61,4 +61,5 @@ $route['projet/consulter_module/$1/$2'] = 'projet/consulter_module/$1/$2';
 $route['projet/ajouter_composant/$1/$2'] = 'projet/consulter_module/$1/$2';
 $route['projet/supprimer_composant/$1/$2'] = 'projet/supprimer_composant/$1/$2';
 $route['projet/supprimer_module/$1/$2'] = 'projet/supprimer_module/$1/$2';
+$route['projet/choix_module'] = 'projet/choix_module/$1';
 $route['projet/(:any)'] = 'projet/$1';

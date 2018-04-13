@@ -240,6 +240,34 @@ Class Projet_model extends CI_Model
 	return $idModule;
   }
 
+  //retoune l'id inséré
+	public function create_module_v2($projet,$nom_module,$details,$unite,$description,$carac,$prix){
+
+  	$ref = $projet->nom_projet.'_'.$nom_module;
+  	$data = array(
+        'ref_module' => $ref,
+        'nom_module' => $nom_module,
+        'details' => $details,
+        'description_module' => $description,
+        'unite' => $unite,
+        'prix_module' => $prix,
+        'caracteristique' =>$carac
+
+	);
+	$this->db->insert($this->tableModule, $data);
+
+	//insertion table projet_mod
+	$idModule =  $this->db->insert_id();
+	$dataMod = array(
+        'id_mod' => $idModule,
+        'id_projet' => $projet->id_projet
+	);
+
+	$this->db->insert($this->tableProjetMod, $dataMod);
+
+	return $idModule;
+  }
+
 
 
   function get_module_with_projet($idModule,$idProjet){
@@ -267,6 +295,17 @@ Class Projet_model extends CI_Model
         'coupe_module' => $coupe_module,
         'description_module' => $description,
         'angle_module' => $angle
+    );
+
+    $this->db->where('id_module', $idModule);
+    $this->db->update($this->tableModule, $data);
+
+  }
+
+  function update_module_v2($idModule,$nom_module, $description){
+  	$data = array(
+        'nom_module' => $nom_module,
+        'description_module' => $description
     );
 
     $this->db->where('id_module', $idModule);
@@ -317,8 +356,8 @@ Class Projet_model extends CI_Model
   	//suppression dans module
   	$req1 = 'DELETE FROM module WHERE id_module = '.$idModule;
   	$query = $this -> db -> query($req2);*/
-  	$this->db->where('id_mod', $idModule);
-	$this->db->delete($this->tableModCompo);
+  	/*$this->db->where('id_mod', $idModule);
+	$this->db->delete($this->tableModCompo);*/
 
 	$this->db->where('id_mod', $idModule);
 	$this->db->delete($this->tableProjetMod);

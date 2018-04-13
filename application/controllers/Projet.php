@@ -99,6 +99,8 @@ class Projet extends CI_Controller {
 		}
 	}
 
+	/* version avec composant */
+	/*
 	public function ajouter_module(){
 		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
 		
@@ -129,7 +131,7 @@ class Projet extends CI_Controller {
 		    	}
 		   		/*if(isset($_POST['labelName']) && !empty($_POST['labelName']) ){
 		    		$label = $_POST['labelName'];
-		   		 }*/
+		   		 }
 		    	$projet =  $this->projet_model->get_projet_by_id($idProjet);
 		    	$prix = 0;
 
@@ -204,9 +206,149 @@ class Projet extends CI_Controller {
 			$this->session->set_flashdata('error_msg', "Vous n'avez pas accès à cette page, Veuillez vous identifier !");
 			redirect('login');
 		}
+	}*/
+
+	/*version sans composant*/
+	public function ajouter_module(){
+		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
+		
+		if($this->estConnecte == true ){
+
+			//on récupére les valeurs
+	    	$nomModule = $this->input->post('nom_mod');
+	    	$carac = $this->input->post('carac');
+	    	$description = $this->input->post('description');
+	    	$details = $this->input->post('details');
+	    	$unite = $this->input->post('unite');
+	    	$idProjet = $this->input->post('idprojet');
+	    	$projet =  $this->projet_model->get_projet_by_id($idProjet);
+	    	$prix =  $this->input->post('prix');
+
+	     	if ($nomModule != null && $description != null){
+		    	
+
+		    	//Création du module
+		    	$idModule = $this->projet_model->create_module_v2($projet,$nomModule,$details,$unite,$description,$carac,$prix);
+
+		    	//MAJ du devis
+		      	$prix_devis = $this->projet_model->get_prix_devis($idProjet);
+		      	$prix_final_devis = $prix_devis->montant_devis_ht + $prix;
+		      	$this->projet_model->update_prix_devis($idProjet,$prix_final_devis);
+		      	$this->session->set_flashdata('msg', "Le module a bien été ajouté ! ");
+				redirect('projet/consulter_projet/'.$idProjet);
+		    	
+			}
+			else{
+				$this->session->set_flashdata('error_msg', "une erreur s'est produite ");
+				redirect('projet/consulter_projet/'.$idProjet);
+			}
+			
+		}
+		else {
+			$this->session->set_flashdata('error_msg', "Vous n'avez pas accès à cette page, Veuillez vous identifier !");
+			redirect('login');
+		}
 	}
 
-	/* consulter et/ou modifier un module*/
+
+
+
+	/* on choisit le module pour charger ses caractéristiques*/
+	public function choix_module(){
+		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
+		if($this->estConnecte == true ){
+
+			
+			if(isset($_POST['modules'])){
+				$idProjet = $this->input->post('idprojet');
+				$nomModule = "";
+				$carac = "";
+				$details = "";
+				$unite = "";
+				$description = " ";
+				$prix = "";
+				$module = $this->input->post('modules');
+				switch ($module) {
+					case 1:
+						$nomModule = "Pièce";
+						$carac = "12";
+						$details = "";
+						$unite = "m²";
+						$description = "Pièce standard";
+						$prix = $carac *1041;
+						break;
+					
+					case 2:
+						$nomModule = "Fenêtre";
+						$carac = "750 x 600 ";
+						$details = "";
+						$unite = "mm";
+						$description = "fenêtre standard";
+						$prix = 90;
+						break;
+
+					case 3:
+						$nomModule = "Porte-fenêtre";
+						$carac = "2150 x 600/800 ";
+						$details = "";
+						$unite = "mm";
+						$description = "porte-fenêtre standard";
+						$prix = 280;
+						break;
+
+					case 4:
+						$nomModule = "Porte";
+						$carac = "2,04x0,83; 35";
+						$details = "(HxL,epaisseur)";
+						$unite = "m, mm";
+						$description = "porte standard";
+						$prix = 300;
+						break;
+
+					case 5:
+						$nomModule = "Toit";
+						$carac = "12";
+						$details ="Tuiles";
+						$unite = " m²";
+						$description = "toit standard";
+						$prix = $carac * 75;
+						break;
+					case 6:
+						$nomModule = "Cuisine";
+						$carac = "12";
+						$details ="Cuisine avec fenêtre";
+						$unite = "m²";
+						$description = "Cuisine standard";
+						$prix = $carac * 1041;
+						break;
+					}
+					
+					
+				$data['carac'] = $carac;
+				$data['details'] = $details;
+				$data['unite'] = $unite;
+				$data['description'] = $description;
+				$data['idProjet'] = $idProjet;
+				$data['nomModule'] = $nomModule;
+				$data['prix'] = $prix;
+				$this->load->view('header');
+				$this->load->view('projet/module/ajouter_module',$data);
+				$this->load->view('footer');
+			}else{
+				$this->load->view('header');
+				$this->load->view('projet/module/choix_module');
+				$this->load->view('footer');
+			}
+
+		}// FIN si estConnecte
+		else {
+			$this->session->set_flashdata('error_msg', "Vous n'avez pas accès à cette page, Veuillez vous identifier !");
+			redirect('login');
+		}
+	}
+
+	/* consulter et/ou modifier un module , premirer version*/
+	/*
 	public function consulter_module(){
 		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
 		if($this->estConnecte == true ){
@@ -227,7 +369,7 @@ class Projet extends CI_Controller {
 	     		//MAJ
 	     		$this->projet_model->update_module($id_module,$nom_module, $coupe_module, $description_module,$angle);
 	     		$this->session->set_flashdata('msg', "Le module a bien été modifié !");
-				redirect('projet');
+				redirect('projet/consulter_projet/'.$idProjet);
 	     	}//sinon on charge les données
 	     	else{
 	     		$idModule = $this->uri->segment(3);
@@ -241,6 +383,54 @@ class Projet extends CI_Controller {
 					$listeComposants = $this->projet_model->get_all_composants($idModule);
 					$data['listeComposants'] = $listeComposants;
 					$idGamme = $this->projet_model->get_idGamme_by_id_projet($idProjet);
+					$this->load->view('header');
+					$this->load->view('projet/consulter_module',$data);
+					$this->load->view('footer');
+				}else{// si le projet ou module n'éxiste pas
+						//on rédirige vers la page des projets
+		        		$this->session->set_flashdata('error_msg', "Le module que vous souhaitez consulter n'existe pas !");
+						redirect('projet');
+				}
+	     	}
+
+
+		}// FIN si estConnecte
+		else {
+			$this->session->set_flashdata('error_msg', "Vous n'avez pas accès à cette page, Veuillez vous identifier !");
+			redirect('login');
+		}
+
+	}*/
+
+	public function consulter_module(){
+		if(isset($_SESSION['logged_in'])) $this->estConnecte = $_SESSION['logged_in'];
+		if($this->estConnecte == true ){
+			$this->form_validation->set_rules('nom_module', 'Nom Module', 'trim|required|xss_clean');
+	     	$this->form_validation->set_rules('description_module', 'Description', 'trim|required|xss_clean');
+
+	     	// si les infos transmis respectent les "rules"
+	     	if ($this->form_validation->run() == TRUE){
+	     		$nom_module = $this->input->post('nom_module');
+	     		$description_module = $this->input->post('description_module');
+	     		$id_module = $this->input->post('id_module');
+	     		$idModule = $this->input->post('id_module');
+	     		$idProjet = $this->input->post('idProjet');
+	     		//MAJ
+	     		$this->projet_model->update_module_v2($idModule,$nom_module, $description_module);
+	     		$this->session->set_flashdata('msg', "Le module a bien été modifié !");
+				redirect('projet/consulter_projet/'.$idProjet);
+	     	}//sinon on charge les données
+	     	else{
+	     		$idModule = $this->uri->segment(3);
+				$idProjet = $this->uri->segment(4);
+				$projet = $this->projet_model->get_projet_by_id($idProjet);
+				$module = $this->projet_model->get_module_with_projet($idModule,$idProjet);
+
+				if($projet != null && $module != null){
+					$data['projet'] = $projet;
+					$data['module'] = $module;
+					$idGamme = $this->projet_model->get_idGamme_by_id_projet($idProjet);
+
 					$this->load->view('header');
 					$this->load->view('projet/consulter_module',$data);
 					$this->load->view('footer');
@@ -412,8 +602,13 @@ class Projet extends CI_Controller {
 	public function supprimer_module(){
 		$idModule = $this->uri->segment(3);
 		$idProjet = $this->uri->segment(4);
+		//MAJ du devis
+		$prix_module = $this->projet_model->get_prix_module($idModule);
+      	$prix_devis = $this->projet_model->get_prix_devis($idProjet);
+      	$prix_final_devis = $prix_devis->montant_devis_ht - $prix_module->prix_module;
+      	$this->projet_model->update_prix_devis($idProjet,$prix_final_devis);
 		$this->projet_model->supprimer_module($idModule,$idProjet);
-		
+
 		redirect('projet/consulter_projet/'.$idProjet);
 	}
 

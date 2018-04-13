@@ -20,16 +20,13 @@
 	      	<p>Référence  : <?= $devis->ref_devis ?></p>
 	      	<p>Montant  : <?= $devis->montant_devis_ht .'€'?></p>
 	      	<?php if($devis->etat_devis == 'Brouillon'){?>
-		      	<a href="http://localhost/madera/index.php/projet/valider_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider</a>
+		      	<a href="http://localhost/madera/index.php/projet/valider_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider le devis</a>
 			                  
 	      	<?php }else if($devis->etat_devis == 'Validé'){?>
-		      	<a href="http://localhost/madera/index.php/projet/payer_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Payer</a>
+		      	<a href="" class="btn btn-sm btn-primary btn-create" role="button">Générer le PDF</a>
 			    <a href="http://localhost/madera/index.php/projet/annuler_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Annuler</a>             
 	      	<?php }
 
-	      	 else if($devis->etat_devis == 'Payé'){?>
-		      	<p> <b> Devis payé  </b></p>
-	      	<?php }
 
 	      	 else if($devis->etat_devis == 'Annulé'){?>
 		      	<a href="http://localhost/madera/index.php/projet/valider_devis/<?= $devis->id_devis ?>/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Valider</a>             
@@ -66,7 +63,7 @@
 	                    <h3 class="panel-title">Les modules du projet</h3>
 	                  </div>
 	                  <div class="col col-xs-6 text-right">
-	                  	<a href="http://localhost/madera/index.php/projet/ajouter_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Ajouter un module</a>
+	                  	<a href="http://localhost/madera/index.php/projet/choix_module/<?= $projet->id_projet ?>" class="btn btn-sm btn-primary btn-create" role="button">Ajouter un module</a>
 	                  </div>
 	                </div>
 	        </div>
@@ -81,11 +78,8 @@
 		                        <th><em class="fa fa-cog"></em></th>
 		                        <th >Référence module</th>
 		                        <th>Nom module</th>
-		                        <th>Coupe</th>
-		                        <th>CCTP</th>
 		                        <th>Description</th>
 		                        <th>Prix</th>
-		                        <th>Angle</th>
 		                    </tr> 
 		                  </thead>
 		                  <tbody>
@@ -100,11 +94,8 @@
 		                            
 		                            <td ><?= $listeModules[$i]['ref_module'] ?></td>
 		                            <td><?= $listeModules[$i]['nom_module']  ?></td>
-		                            <td><?= $listeModules[$i]['coupe_module']  ?></td>
-		                            <td><?= $listeModules[$i]['cctp_module']  ?></td>
 		                            <td><?= $listeModules[$i]['description_module']  ?></td>
 		                            <td><?= $listeModules[$i]['prix_module']  ?></td>
-		                            <td><?= $listeModules[$i]['angle_module']  ?></td>
 		                             
 		                          </tr>
 		                          <?php } ?>
